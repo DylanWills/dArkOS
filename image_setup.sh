@@ -41,7 +41,7 @@ sync
 
 
 # Build uboot and install it to the image
-git clone https://github.com/christianhaitian/u-boot-rk3326
+git clone --depth=1 https://github.com/christianhaitian/u-boot-rk3326
 cd u-boot-rk3326
 ./make.sh odroidgoa
 
