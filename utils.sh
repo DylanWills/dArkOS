@@ -74,12 +74,12 @@ function setup_arkbuild32() {
 }
 
 function remove_arkbuild() {
-sudo umount Arkbuild/dev/pts
-sudo umount Arkbuild/dev
-sudo umount Arkbuild/proc
-sudo umount Arkbuild/sys
-sudo umount -l Arkbuild
-sudo rm -rf Arkbuild
+  sudo umount Arkbuild/dev/pts
+  sudo umount Arkbuild/dev
+  sudo umount Arkbuild/proc
+  sudo umount Arkbuild/sys
+  sudo umount -l Arkbuild
+  sudo rm -rf Arkbuild
 }
 
 function remove_arkbuild32() {
