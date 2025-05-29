@@ -9,6 +9,9 @@ sudo chroot Arkbuild/ bash -c "cd /home/ark &&
 sudo mkdir -p Arkbuild/opt/gzdoom
 sudo mkdir -p Arkbuild/home/ark/.config/gzdoom
 sudo cp -a Arkbuild/home/ark/rk3326_core_builds/gzdoom64/gzdoom Arkbuild/opt/gzdoom/
+sudo cp -a Arkbuild/home/ark/rk3326_core_builds/zmusic/build/source/libzmusic.so.* Arkbuild/opt/gzdoom/
+sudo cp -a Arkbuild/lib/aarch64-linux-gnu/libvpx.so.*[2-9] Arkbuild/opt/gzdoom/
+sudo cp -a Arkbuild/usr/lib/aarch64-linux-gnu/libwebpdemux.so.*[2-9] Arkbuild/opt/gzdoom/
 sudo cp -a gzdoom/configs/rgb10/gzdoom.ini Arkbuild/home/ark/.config/gzdoom/
 sudo cp -a gzdoom/configs/rgb10/*.ini Arkbuild/opt/gzdoom/
 sudo cp gzdoom/scripts/doom* Arkbuild/usr/local/bin/

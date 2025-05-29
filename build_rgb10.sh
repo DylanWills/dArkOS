@@ -29,6 +29,7 @@ source ./build_deps.sh
 source ./build_sdl2.sh
 source ./build_ppssppsa.sh
 source ./build_mupen64plussa.sh
+source ./build_gzdoom.sh
 source ./build_retroarch.sh
 source ./build_retrorun.sh
 source ./build_mednafen.sh

@@ -24,5 +24,6 @@ libstdc++-12-dev
 libsoxr-dev
 libvlc-dev
 libvlccore-dev
+libvpx-dev
 rapidjson-dev
 

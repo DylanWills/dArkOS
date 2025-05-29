@@ -51,6 +51,7 @@ sudo chroot Arkbuild/ bash -c "apt-get remove -y autotools-dev \
   libvlc-dev \
   libvlccore-dev \
   libvorbis-dev \
+  libvpx-dev \
   libx11-dev \
   libx11-xcb1 \
   libxcb-dri2-0 \
