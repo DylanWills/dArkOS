@@ -1,13 +1,13 @@
 #!/bin/bash
 
 # Build and install Retrorun and Retrorun32
-sudo chroot Arkbuild/ bash -c "cd /home/ark &&
+call_chroot "cd /home/ark &&
   if [ ! -d rk3326_core_builds ]; then git clone https://github.com/christianhaitian/rk3326_core_builds.git; fi &&
   cd rk3326_core_builds &&
   chmod 777 builds-alt.sh &&
   ./builds-alt.sh retrorun
   "
-sudo chroot Arkbuild32/ bash -c "cd /home/ark &&
+call_chroot32 "cd /home/ark &&
   if [ ! -d rk3326_core_builds ]; then git clone https://github.com/christianhaitian/rk3326_core_builds.git; fi &&
   cd rk3326_core_builds &&
   chmod 777 builds-alt.sh &&

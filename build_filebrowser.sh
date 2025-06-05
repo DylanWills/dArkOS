@@ -6,4 +6,4 @@ sudo tar -xvzf linux-arm64-filebrowser.tar.gz -C Arkbuild/usr/local/bin filebrow
 sudo chmod 777 Arkbuild/usr/local/bin/filebrowser
 rm -f linux-arm64-filebrowser.tar.gz
 sudo cp filebrowser/filebrowser.db Arkbuild/home/ark/.config/
-sudo chroot Arkbuild/ bash -c "chown -R ark:ark /home/ark/.config/filebrowser.db"
+call_chroot "chown -R ark:ark /home/ark/.config/filebrowser.db"

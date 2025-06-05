@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Build and install ogage (Globa Hotkey Daemon)
-sudo chroot Arkbuild/ bash -c "cd /home/ark &&
+call_chroot "cd /home/ark &&
   git clone https://github.com/christianhaitian/ogage.git &&
   cd ogage &&
   export CARGO_NET_GIT_FETCH_WITH_CLI=true &&
@@ -12,4 +12,4 @@ sudo chroot Arkbuild/ bash -c "cd /home/ark &&
   "
 sudo rm -rf Arkbuild/home/ark/ogage
 sudo cp scripts/ogage.service Arkbuild/etc/systemd/system/ogage.service
-sudo chroot Arkbuild/ bash -c "systemctl enable ogage"
+call_chroot "systemctl enable ogage"

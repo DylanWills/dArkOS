@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Build and install PPSSPP standalone emulator
-sudo chroot Arkbuild/ bash -c "cd /home/ark &&
+call_chroot "cd /home/ark &&
   cd rk3326_core_builds &&
   chmod 777 builds-alt.sh &&
   eatmydata ./builds-alt.sh ppsspp
@@ -17,7 +17,7 @@ sudo cp ppsspp/controls.ini.rgb10 Arkbuild/opt/ppsspp/backupforromsfolder/ppsspp
 sudo cp ppsspp/ppsspp.ini.rgb10 Arkbuild/opt/ppsspp/backupforromsfolder/ppsspp/PSP/SYSTEM/ppsspp.ini
 sudo cp -a Arkbuild/home/ark/rk3326_core_builds/ppsspp/LICENSE.TXT Arkbuild/opt/ppsspp/
 sudo cp -a Arkbuild/home/ark/rk3326_core_builds/ppsspp/build/PPSSPPSDL Arkbuild/opt/ppsspp/
-sudo chroot Arkbuild/ bash -c "chown -R ark:ark /opt/"
+call_chroot "chown -R ark:ark /opt/"
 sudo chmod 777 Arkbuild/opt/ppsspp/PPSSPPSDL
 sudo chmod 777 Arkbuild/usr/local/bin/ppssppkeydemon.py
 sudo chmod 777 Arkbuild/usr/local/bin/ppsspp.sh

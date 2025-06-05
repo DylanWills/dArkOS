@@ -2,7 +2,7 @@
 
 # Build and install gptokeyb for various dArkOS menus from christianhaitian/gptokeyb
 
-sudo chroot Arkbuild/ bash -c "cd /home/ark &&
+call_chroot "cd /home/ark &&
   git clone --recursive --depth=1 https://github.com/christianhaitian/gptokeyb.git -b inttools &&
   cd gptokeyb &&
   make all &&
@@ -13,7 +13,7 @@ sudo chroot Arkbuild/ bash -c "cd /home/ark &&
   "
 sudo rm -rf Arkbuild/home/ark/gptokeyb
 sudo cp inttools/* Arkbuild/opt/inttools/
-sudo chroot Arkbuild/ bash -c "chown -R ark:ark /opt/inttools"
+call_chroot "chown -R ark:ark /opt/inttools"
 sudo chmod 777 Arkbuild/opt/inttools/osk.py
 
 # Copy some other tools that make use of gptokeyb

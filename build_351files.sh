@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Build and install ogage (Globa Hotkey Daemon)
-sudo chroot Arkbuild/ bash -c "cd /home/ark &&
+call_chroot "cd /home/ark &&
   git clone --recursive https://github.com/christianhaitian/351Files.git &&
   cd 351Files &&
   ./build_RG351.sh RGB10 ArkOS /roms ./res &&

@@ -10,8 +10,8 @@ echo  "export devpass=$(printenv DEV_PASS)" | sudo tee -a Arkbuild/home/ark/ES_V
 echo "export apikey=$(printenv TGDB_APIKEY)" | sudo tee -a Arkbuild/home/ark/ES_VARIABLES.txt
 echo "export softname=\"dArkOS-RGB10\"" | sudo tee -a Arkbuild/home/ark/ES_VARIABLES.txt
 
-sudo chroot Arkbuild/ bash -c "apt-get -y update && eatmydata apt-get -y install libfreeimage3 fonts-droid-fallback libfreetype6 curl vlc-bin libsdl2-mixer-2.0-0"
-sudo chroot Arkbuild/ bash -c "cd /home/ark &&
+call_chroot "apt-get -y update && eatmydata apt-get -y install libfreeimage3 fonts-droid-fallback libfreetype6 curl vlc-bin libsdl2-mixer-2.0-0"
+call_chroot "cd /home/ark &&
   source ES_VARIABLES.txt &&
   rm ES_VARIABLES.txt &&
   git clone --recursive --depth=1 https://github.com/christianhaitian/EmulationStation-fcamod -b master &&
@@ -35,9 +35,9 @@ sudo cp Emulationstation/es_input.cfg.rgb10 Arkbuild/etc/emulationstation/es_inp
 sudo cp Emulationstation/es_settings.cfg.rgb10 Arkbuild/home/ark/.emulationstation/es_settings.cfg
 sudo cp Emulationstation/emulationstation.sh.rgb10 Arkbuild/usr/bin/emulationstation/emulationstation.sh
 sudo cp Emulationstation/fonts/* Arkbuild/usr/bin/emulationstation/resources/
-sudo chroot Arkbuild/ bash -c "chown -R ark:ark /etc/emulationstation/"
-sudo chroot Arkbuild/ bash -c "chown -R ark:ark /home/ark/"
+call_chroot "chown -R ark:ark /etc/emulationstation/"
+call_chroot "chown -R ark:ark /home/ark/"
 sudo chmod 777 Arkbuild/usr/bin/emulationstation/emulationstation.sh
 sudo cp Emulationstation/emulationstation.service Arkbuild/etc/systemd/system/emulationstation.service
-sudo chroot Arkbuild/ bash -c "systemctl enable emulationstation"
+call_chroot "systemctl enable emulationstation"
 

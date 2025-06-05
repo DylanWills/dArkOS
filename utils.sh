@@ -8,6 +8,14 @@ function verify_action() {
   fi
 }
 
+function call_chroot() {
+  sudo chroot Arkbuild bash -c "source /root/.bashrc && $@"
+}
+
+function call_chroot32() {
+  sudo chroot Arkbuild32 bash -c "source /root/.bashrc && $@"
+}
+
 function setup_ark_user() {
   if [ "$1" == "32" ]; then
     CHROOT_DIR="Arkbuild32"

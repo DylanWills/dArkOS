@@ -16,6 +16,7 @@ libarchive-zip-perl
 libasound2
 libfaad2
 libfreetype6
+libgtk-3-0
 liblzma5
 libmad0
 libmpeg2-4

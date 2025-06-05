@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Build and install Mupen64Plus standalone emulator
-sudo chroot Arkbuild/ bash -c "cd /home/ark &&
+call_chroot "cd /home/ark &&
   cd rk3326_core_builds &&
   chmod 777 builds-alt.sh &&
   eatmydata ./builds-alt.sh mupen64plussa
@@ -16,7 +16,7 @@ sudo cp mupen64plus/scripts/n64.sh Arkbuild/usr/local/bin/
 cd Arkbuild/opt/mupen64plus
 sudo ln -s libmupen64plus.so.2.0.0 libmupen64plus.so.2
 cd ../../../
-sudo chroot Arkbuild/ bash -c "chown -R ark:ark /home/ark/.config/"
-sudo chroot Arkbuild/ bash -c "chown -R ark:ark /opt/"
+call_chroot "chown -R ark:ark /home/ark/.config/"
+call_chroot "chown -R ark:ark /opt/"
 sudo chmod 777 Arkbuild/opt/mupen64plus/*
 sudo chmod 777 Arkbuild/usr/local/bin/n64.sh

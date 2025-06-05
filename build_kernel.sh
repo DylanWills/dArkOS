@@ -35,7 +35,7 @@ sudo cp /usr/bin/qemu-aarch64-static Arkbuild/usr/bin/
 KERNEL_VERSION=$(basename $(find Arkbuild/lib/modules -maxdepth 1 -mindepth 1 -type d))
 # Create symlink so depmod/initramfs can find modules for uname -r (host kernel)
 sudo touch Arkbuild/lib/modules/${KERNEL_VERSION}/modules.builtin.modinfo
-sudo chroot Arkbuild/ bash -c "uname() { echo ${KERNEL_VERSION}; }; export -f uname; depmod ${KERNEL_VERSION}; update-initramfs -c -k ${KERNEL_VERSION}"
+call_chroot "uname() { echo ${KERNEL_VERSION}; }; export -f uname; depmod ${KERNEL_VERSION}; update-initramfs -c -k ${KERNEL_VERSION}"
 sudo rm Arkbuild/usr/bin/qemu-aarch64-static
 sudo cp Arkbuild/boot/initrd.img-* ${mountpoint}/initrd.img
 if ! command -v mkimage &> /dev/null; then

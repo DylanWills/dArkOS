@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Build and install Retroarch
-sudo chroot Arkbuild/ bash -c "cd /home/ark &&
+call_chroot "cd /home/ark &&
   cd rk3326_core_builds &&
   chmod 777 builds-alt.sh &&
   eatmydata ./builds-alt.sh retroarch
@@ -23,7 +23,7 @@ sudo cp retroarch/configs/controller/* Arkbuild/home/ark/.config/retroarch/autoc
 sudo cp retroarch/scripts/retroarch Arkbuild/usr/local/bin/
 sudo cp retroarch/scripts/retroarch.sh Arkbuild/opt/cmds
 #sudo cp retroarch/scripts/retroarch32.sh Arkbuild/opt/cmds
-sudo chroot Arkbuild/ bash -c "chown -R ark:ark /opt/"
+call_chroot "chown -R ark:ark /opt/"
 sudo chmod 777 Arkbuild/opt/cmds/*
 sudo chmod 777 Arkbuild/usr/local/bin/retroarch
 sudo chmod 777 Arkbuild/opt/retroarch/bin/*
@@ -77,7 +77,7 @@ sudo find Arkbuild/home/ark/.config/retroarch/assets/ -maxdepth 1 ! -name assets
 
 setup_arkbuild32
 sudo chroot Arkbuild32/ mkdir -p /home/ark
-sudo chroot Arkbuild32/ bash -c "cd /home/ark &&
+call_chroot32 "cd /home/ark &&
   if [ ! -d rk3326_core_builds ]; then git clone https://github.com/christianhaitian/rk3326_core_builds.git; fi &&
   cd rk3326_core_builds &&
   chmod 777 builds-alt.sh &&
@@ -95,7 +95,7 @@ sudo cp -a retroarch32/configs/retroarch* Arkbuild/home/ark/.config/retroarch32/
 sudo cp retroarch32/configs/controller/* Arkbuild/home/ark/.config/retroarch32/autoconfig/udev/
 sudo cp retroarch32/scripts/retroarch32 Arkbuild/usr/local/bin/
 sudo cp retroarch32/scripts/retroarch32.sh Arkbuild/opt/cmds
-sudo chroot Arkbuild/ bash -c "chown -R ark:ark /opt/"
+call_chroot "chown -R ark:ark /opt/"
 sudo chmod 777 Arkbuild/opt/cmds/*
 sudo chmod 777 Arkbuild/usr/local/bin/retroarch32
 sudo chmod 777 Arkbuild/opt/retroarch/bin/*
@@ -142,4 +142,4 @@ sudo find Arkbuild/home/ark/.config/retroarch32/assets/ -maxdepth 1 ! -name asse
                                                                   ! -name switch \
                                                                   ! -name xmb \
                                                                   ! -name COPYING -type d,f -not -path '.' -exec rm -rf {} +
-sudo chroot Arkbuild/ bash -c "chown -R ark:ark /home/ark/.config/"
+call_chroot "chown -R ark:ark /home/ark/.config/"
