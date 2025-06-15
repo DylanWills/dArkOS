@@ -1,9 +1,9 @@
 #!/bin/bash
 
 if [ "$CHIPSET" == "rk3326" ]; then
-  sub_folder="build"
-else
   sub_folder=""
+else
+  sub_folder="build"
 fi
 
 if [ "$1" == "32" ]; then
