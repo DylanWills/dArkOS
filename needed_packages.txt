@@ -15,6 +15,7 @@ iw
 liba52-0.7.4
 libarchive-zip-perl
 libasound2
+libboost-filesystem1.74.0
 libfaad2
 libfreetype6
 libgtk-3-0

@@ -1,6 +1,12 @@
 #!/bin/bash
 
 # Build and install Retrorun and Retrorun32
+if [ "$CHIPSET" == "rk3326" ]; then
+  ext="-rk3326"
+else
+  ext=""
+fi
+
 call_chroot "cd /home/ark &&
   if [ ! -d ${CHIPSET}_core_builds ]; then git clone https://github.com/christianhaitian/${CHIPSET}_core_builds.git; fi &&
   cd ${CHIPSET}_core_builds &&
@@ -13,8 +19,8 @@ call_chroot32 "cd /home/ark &&
   chmod 777 builds-alt.sh &&
   ./builds-alt.sh retrorun
   "
-sudo cp -a Arkbuild/home/ark/${CHIPSET}_core_builds/retrorun-64/retrorun-${CHIPSET} Arkbuild/usr/local/bin/retrorun
-sudo cp -a Arkbuild32/home/ark/${CHIPSET}_core_builds/retrorun-32/retrorun32-${CHIPSET} Arkbuild/usr/local/bin/retrorun32
+sudo cp -a Arkbuild/home/ark/${CHIPSET}_core_builds/retrorun-64/retrorun${ext} Arkbuild/usr/local/bin/retrorun
+sudo cp -a Arkbuild32/home/ark/${CHIPSET}_core_builds/retrorun-32/retrorun32${ext} Arkbuild/usr/local/bin/retrorun32
 sudo cp -a retrorun/scripts/*.sh Arkbuild/usr/local/bin/
 sudo cp -a retrorun/configs/retrorun.cfg.${CHIPSET} Arkbuild/home/ark/.config/retrorun.cfg
 

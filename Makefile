@@ -1,9 +1,13 @@
 SHELL := /bin/bash
 
-all: rgb10
+all:
+	@echo "Please specify a valid build target: make rgb10 or make rg353m"
 
 rgb10:
 	./build_rgb10.sh
+
+rg353m:
+	./build_rg353m.sh
 
 clean:
 	[ -d "mnt/boot" ] && sudo umount mnt/boot && sudo rm -rf mnt/boot || true

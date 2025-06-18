@@ -114,7 +114,6 @@ sudo cp scripts/speak_bat_life.sh Arkbuild/usr/local/bin/
 sudo cp scripts/spktoggle.sh Arkbuild/usr/local/bin/
 sudo cp scripts/timezones Arkbuild/usr/local/bin/
 sudo cp global/* Arkbuild/usr/local/bin/
-sudo cp -R mbrola Arkbuild/usr/share/
 sudo cp device/rgb10/* Arkbuild/usr/local/bin/
 
 # Make all scripts in /usr/local/bin executable, world style

@@ -15,9 +15,11 @@ n64
 naomi
 neogeo
 nes
+pico-8/carts
 psp
 pspminis
 psx
+saturn
 scummvm
 themes
 tools

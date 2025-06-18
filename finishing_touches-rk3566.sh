@@ -121,7 +121,6 @@ sudo cp scripts/timezones Arkbuild/usr/local/bin/
 sudo cp scripts/Sleep* Arkbuild/usr/local/bin/
 sudo cp scripts/Switch* Arkbuild/usr/local/bin/
 sudo cp scripts/Fix* Arkbuild/usr/local/bin/
-sudo cp -R mbrola Arkbuild/usr/share/
 sudo cp global/* Arkbuild/usr/local/bin/
 sudo cp device/rk3566/uboot.img.anbernic Arkbuild/usr/local/bin/
 sudo cp device/rk3566/uboot.img Arkbuild/usr/local/bin/uboot.img.jelos

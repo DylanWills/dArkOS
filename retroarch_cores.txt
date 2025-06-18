@@ -1,5 +1,6 @@
 # Retroarch cores that should be installed from https://github.com/christianhaitian/retroarch-cores
 ecwolf
+fake08
 fbneo
 fceumm
 flycast
@@ -16,3 +17,5 @@ pcsx_rearmed
 ppsspp
 prboom
 scummvm
+yabasanshiro
+yabause
