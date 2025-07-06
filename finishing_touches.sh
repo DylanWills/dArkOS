@@ -145,7 +145,6 @@ sudo chroot Arkbuild/ bash -c "ln -sfv /roms/themes/ /etc/emulationstation/theme
 
 # Set launchimage to PIC mode
 sudo chroot Arkbuild/ touch /home/ark/.config/.GameLoadingIModePIC
-sudo chroot Arkbuild/ bash -c "chown -R ark:ark /home/ark"
 
 # Set default volume
 sudo cp audio/asound.state.${CHIPSET} Arkbuild/var/local/asound.state
@@ -159,7 +158,7 @@ if [ "$CHIPSET" == "rk3326" ]; then
 fi
 
 # Configure default samba share setup
-cat <<EOF | sudo tee -a sudo tee Arkbuild/etc/samba/smb.conf
+cat <<EOF | sudo tee -a Arkbuild/etc/samba/smb.conf
 [roms]
    comment = ROMS
    path = /roms
@@ -195,6 +194,22 @@ cat <<EOF | sudo tee -a sudo tee Arkbuild/etc/samba/smb.conf
 EOF
 sudo chroot Arkbuild/ bash -c "systemctl disable smbd"
 sudo chroot Arkbuild/ bash -c "systemctl disable nmbd"
+
+# Set distro identification and version
+sudo mkdir -p Arkbuild/usr/share/plymouth/themes/
+cat <<EOF | sudo tee Arkbuild/usr/share/plymouth/themes/text.plymouth
+title=dArkOS (${BUILD_DATE})
+EOF
+echo "${BUILD_DATE}" | sudo tee Arkbuild/home/ark/.config/.VERSION
+
+# Set boot up welcome text with distro and version
+sudo cp scripts/boot_text.sh Arkbuild/usr/local/bin/
+sudo chmod 777 Arkbuild/usr/local/bin/boot_text.sh
+sudo cp scripts/welcome-message.service Arkbuild/etc/systemd/system/welcome-message.service
+sudo chroot Arkbuild/ bash -c "systemctl enable welcome-message"
+
+# Set the ownver of the ark folder and all sub content to ark
+sudo chroot Arkbuild/ bash -c "chown -R ark:ark /home/ark"
 
 # Clone some themes to the tempthemes folder
 sudo mkdir Arkbuild/tempthemes
