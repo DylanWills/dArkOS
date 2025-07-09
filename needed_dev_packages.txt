@@ -3,8 +3,10 @@ build-essential
 ccache
 libasound2-dev
 libboost-date-time-dev
+libboost-dev
 libboost-filesystem-dev
 libboost-locale-dev
+libboost-regex-dev
 libboost-system-dev
 libcurl4-openssl-dev
 libdrm-dev
@@ -12,6 +14,7 @@ libeigen3-dev
 libevdev-dev
 libfreeimage-dev
 libfreetype6-dev
+libncurses-dev
 libnl-3-dev
 libnl-genl-3-dev
 libnl-route-3-dev
@@ -21,6 +24,9 @@ libpng-dev
 libsdl2-image-dev
 libsdl2-mixer-dev
 libsdl2-ttf-dev
+libslirp-dev
+libssl-dev
+libssl-ocaml-dev
 libstdc++-12-dev
 libsoxr-dev
 libvlc-dev
@@ -28,4 +34,6 @@ libvlccore-dev
 libvorbisidec-dev
 libvpx-dev
 libzip-dev
+ninja-build
+pkg-config
 rapidjson-dev

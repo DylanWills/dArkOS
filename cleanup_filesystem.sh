@@ -15,8 +15,10 @@ call_chroot "apt remove -y autotools-dev \
   liba52-0.7.4-dev \
   libasound2-dev \
   libboost-date-time-dev \
+  libboost-dev \
   libboost-filesystem-dev \
   libboost-locale-dev \
+  libboost-regex-dev \
   libboost-system-dev \
   libcurl4-openssl-dev \
   libdrm-dev \
@@ -32,6 +34,7 @@ call_chroot "apt remove -y autotools-dev \
   libjpeg62-turbo-dev \
   libmad0-dev \
   libmpeg2-4-dev \
+  libncurses-dev \
   libnl-3-dev \
   libnl-genl-3-dev \
   libnl-route-3-dev \
@@ -42,9 +45,12 @@ call_chroot "apt remove -y autotools-dev \
   libsdl2-image-dev \
   libsdl2-mixer-dev \
   libsdl2-ttf-dev \
+  libslirp-dev \
   libsm-dev \
   libsoxr-dev \
   libspeechd-dev \
+  libssl-dev \
+  libssl-ocaml-dev \
   libstdc++-12-dev \
   libtheora-dev \
   libudev-dev \
@@ -56,6 +62,7 @@ call_chroot "apt remove -y autotools-dev \
   libx11-dev \
   libx11-xcb1 \
   libxcb-dri2-0 \
+  libyaml-dev \
   libzip-dev \
   ninja-build \
   pkg-config \

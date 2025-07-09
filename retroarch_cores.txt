@@ -3,6 +3,7 @@ applewin
 atari800
 a5200
 b2
+bluemsx
 cap32
 crocods
 dosbox
@@ -14,6 +15,7 @@ fbneo
 fceumm
 flycast
 flycast_rumble
+fmsx
 freej2me
 freej2me-plus
 fuse

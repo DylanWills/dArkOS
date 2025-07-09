@@ -60,6 +60,7 @@ echo 'LANG="en_US.UTF-8"' | sudo tee -a Arkbuild/etc/default/locale > /dev/null
 echo -e "export LC_All=en_US.UTF-8" | sudo tee -a Arkbuild/root/.bashrc > /dev/null
 echo -e "export LC_CTYPE=en_US.UTF-8" | sudo tee -a Arkbuild/root/.bashrc > /dev/null
 sudo chroot Arkbuild/ bash -c "update-locale LANG=en_US.UTF-8"
+sudo chroot Arkbuild/ bash -c "locale-gen"
 sudo chroot Arkbuild/ systemctl enable NetworkManager
 
 # Install libmali, DRM, and GBM libraries for ${CHIPSET}

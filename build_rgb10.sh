@@ -30,7 +30,9 @@ source ./image_setup.sh
 source ./build_kernel.sh
 source ./build_deps.sh
 source ./build_sdl2.sh
+source ./build_applewinsa.sh
 source ./build_ppssppsa.sh
+source ./build_duckstationsa.sh
 source ./build_mupen64plussa.sh
 source ./build_gzdoom.sh
 source ./build_lzdoom.sh
@@ -53,6 +55,9 @@ source ./build_gptokeyb.sh
 source ./build_image-viewer.sh
 source ./build_emulationstation.sh
 source ./build_linapple.sh
+source ./build_ti99sim.sh
+source ./build_openmsxsa.sh
+source ./build_drastic.sh
 source ./finishing_touches.sh
 source ./cleanup_filesystem.sh
 source ./write_rootfs.sh

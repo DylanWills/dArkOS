@@ -36,7 +36,7 @@ GUID_BASIC_DATA="EBD0A0A2-B9E5-4433-87C0-68B6B72699C7"
 declare -a PARTS=(
   "uboot 16384 24575 $GUID_UBOOT"          # 4MB
   "resource 24576 32767 $GUID_RESOURCE"    # 4MB
-  "ANBERNIC 32768 235519 $GUID_BASIC_DATA" # 104MB
+  "dArkOS_Fat 32768 235519 $GUID_BASIC_DATA" # 104MB
   "rootfs 237568 15421439 $GUID_BASIC_DATA" # ~7.7GB
   "4 15421440 15583871 $GUID_BASIC_DATA"   # 79MB
 )
@@ -52,31 +52,11 @@ sudo partprobe $LOOP_DEV
 sleep 2
 
 # Format partitions where needed
-sudo mkfs.vfat -n ANBERNIC "${LOOP_DEV}p3"
+sudo mkfs.vfat -n dArkOS_Fat "${LOOP_DEV}p3"
 sudo mkfs.${ROOT_FILESYSTEM_FORMAT} ${ROOT_FILESYSTEM_FORMAT_PARAMETERS} "${LOOP_DEV}p4"
 sudo mkfs.vfat -n ROMS "${LOOP_DEV}p5"
-
-# Copy content (example only)
-#echo "Copying boot files to ANBERNIC..."
-#mount "${LOOP_DEV}p3" /mnt
-#cp android/Image /mnt/
-#cp android/rk3566-anbernic-rg353m.dtb /mnt/
-#cp boot/extlinux.conf /mnt/
-#umount /mnt
-
-#echo "Extracting rootfs..."
-#mount "${LOOP_DEV}p4" /mnt
-#tar -xpf rootfs/rootfs.tar.gz -C /mnt
-#umount /mnt
-
-#echo "Flashing uboot.img and resource.img..."
-#sudo dd if=device/rk3566/uboot.img of=$LOOP_DEV bs=$SECTOR_SIZE seek=16384 conv=notrunc
-#sudo dd if=device/rk3566/resource.img of=$LOOP_DEV bs=$SECTOR_SIZE seek=24576 conv=notrunc
 
 dd if=/dev/zero of="${FILESYSTEM}" bs=1M count=0 seek="${BUILD_SIZE}" conv=fsync
 sudo mkfs.${ROOT_FILESYSTEM_FORMAT} ${ROOT_FILESYSTEM_FORMAT_PARAMETERS} "${FILESYSTEM}"
 mkdir -p Arkbuild/
 sudo mount -t ${ROOT_FILESYSTEM_FORMAT} -o ${ROOT_FILESYSTEM_MOUNT_OPTIONS},loop ${FILESYSTEM} Arkbuild/
-
-#sudo losetup -d $LOOP_DEV
-#echo "✅ ArkOS-like image created: $DISK"

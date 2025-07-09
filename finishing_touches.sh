@@ -33,7 +33,7 @@ echo "HandlePowerKey=ignore" | sudo tee -a Arkbuild/etc/systemd/logind.conf
 
 # Add some important exports to .bashrc for user ark
 echo "export PATH=\"\$PATH:/usr/sbin\"" | sudo tee -a Arkbuild/home/ark/.bashrc
-sudo chroot Arkbuild/ chown ark:ark /home/ark/.bashrc
+sudo chroot Arkbuild/ bash -c "chown ark:ark /home/ark/.bashrc"
 
 # Set the name in the hostname and add it to the hosts file
 echo "rgb10" | sudo tee Arkbuild/etc/hostname

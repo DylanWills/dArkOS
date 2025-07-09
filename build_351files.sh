@@ -1,20 +1,19 @@
 #!/bin/bash
 
 # Build and install 351Files
-if [ "$CHIPSET" == "rk3326" ]; then
+if [ "$UNIT" == "rgb10" ]; then
   BUILD_UNIT="RGB10"
-else
+elif [[ "$UNIT" == *"353"* ]]; then
   BUILD_UNIT="RG353V"
 fi
 call_chroot "cd /home/ark &&
   git clone --recursive https://github.com/christianhaitian/351Files.git &&
   cd 351Files &&
   ./build_RG351.sh ${BUILD_UNIT} ArkOS /roms ./res &&
-  strip 351Files* &&
-  mkdir -p /opt/351Files &&
-  cp 351Files* /opt/351Files/ &&
-  chmod 777 /opt/351Files/351Files* &&
-  cp -R res/ /opt/351Files/
+  strip 351Files*
   "
+sudo mkdir -p Arkbuild/opt/351Files
+sudo cp Arkbuild/home/ark/351Files/351Files* Arkbuild/opt/351Files/
+sudo chmod 777 Arkbuild/opt/351Files/351Files*
+sudo cp -R Arkbuild/home/ark/351Files/res/ Arkbuild/opt/351Files/
 sudo rm -rf Arkbuild/home/ark/351Files
-
