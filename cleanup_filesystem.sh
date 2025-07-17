@@ -79,7 +79,17 @@ while read NEEDED_PACKAGE; do
     install_package armhf ${NEEDED_PACKAGE}
   fi
 done <needed_packages32.txt
-sync
+sync Arkbuild
+
+# Ensure additional needed packages for Kodi are still in place if Kodi is built
+if [[ "$CHIPSET" == *"3566"* ]]; then
+  while read KODI_NEEDED_PACKAGE; do
+    if [[ ! "$KODI_NEEDED_PACKAGE" =~ ^# ]] && [[ "$KODI_NEEDED_PACKAGE" != *"-dev"* ]]; then
+      install_package 64 ${KODI_NEEDED_PACKAGE}
+      protect_package 64 ${KODI_NEEDED_PACKAGE}
+    fi
+  done <kodi_needed_dev_packages.txt
+fi
 
 while read NEEDED_PACKAGE; do
   if [[ ! "$NEEDED_PACKAGE" =~ ^# ]]; then

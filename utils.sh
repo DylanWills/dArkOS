@@ -62,7 +62,7 @@ function setup_arkbuild32() {
     # Bootstrap base system
     sudo debootstrap --no-check-gpg --include=eatmydata --resolve-deps --arch=armhf --foreign ${DEBIAN_CODE_NAME} Arkbuild32 http://deb.debian.org/debian/
     sudo cp /usr/bin/qemu-arm-static Arkbuild32/usr/bin/
-    sudo chroot Arkbuild32/ apt-get -y install eatmydata
+    sudo chroot Arkbuild32/ apt -y install eatmydata
     sudo chroot Arkbuild32/ eatmydata /debootstrap/debootstrap --second-stage
 
     # Bind essential host filesystems into chroot for networking
@@ -73,7 +73,7 @@ function setup_arkbuild32() {
     sudo mount --bind /sys Arkbuild32/sys
     echo -e "nameserver 8.8.8.8\nnameserver 1.1.1.1" | sudo tee Arkbuild32/etc/resolv.conf > /dev/null
     # Install libmali, DRM, and GBM libraries for rk3326 or rk3566
-    sudo chroot Arkbuild32/ apt-get install -y libdrm-dev libgbm1
+    sudo chroot Arkbuild32/ apt install -y libdrm-dev libgbm1
     setup_ark_user 32
     sudo mkdir -p Arkbuild32/home/ark
     sudo chroot Arkbuild32/ umount /proc
@@ -157,10 +157,10 @@ function install_package() {
          then
            sudo sed -i '/main/s//main contrib non-free non-free-firmware/' ${CHROOT_DIR}/etc/apt/sources.list
 		 fi
-         sudo chroot ${CHROOT_DIR}/ apt-get -y update
+         sudo chroot ${CHROOT_DIR}/ apt -y update
          updateapt="Y"
        fi
-       sudo chroot ${CHROOT_DIR}/ bash -c "DEBIAN_FRONTEND=noninteractive eatmydata apt-get -y install ${libs}${NEEDED_ARCH}"
+       sudo chroot ${CHROOT_DIR}/ bash -c "DEBIAN_FRONTEND=noninteractive eatmydata apt -y install ${libs}${NEEDED_ARCH}"
        if [[ $? != "0" ]]; then
          echo " "
          echo "Could not install needed library ${libs}${NEEDED_ARCH}."

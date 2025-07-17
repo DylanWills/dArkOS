@@ -24,7 +24,7 @@ done <needed_packages.txt
 while read NEEDED_DEV_PACKAGE; do
   if [[ ! "$NEEDED_DEV_PACKAGE" =~ ^# ]]; then
     install_package $BIT "${NEEDED_DEV_PACKAGE}"
-    protect_package $BIT "${NEEDED_DEV_PACKAGE}"
+    #protect_package $BIT "${NEEDED_DEV_PACKAGE}"
   fi
 done <needed_dev_packages.txt
 
