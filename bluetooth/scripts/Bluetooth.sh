@@ -36,10 +36,28 @@ if test ! -z "$(cat /home/ark/.config/.DEVICE | grep RG503 | tr -d '\0')"
 then
   height="20"
   width="60"
+elif test ! -z "$(cat /home/ark/.config/.DEVICE | grep RGB20PRO | tr -d '\0')"
+then
+  height="20"
+  width="70"
 fi
 
 export TERM=linux
 export XDG_RUNTIME_DIR=/run/user/$UID/
+
+if [[ ! -e "/dev/input/by-path/platform-odroidgo2-joypad-event-joystick" ]]; then
+  if test ! -z "$(cat /home/ark/.config/.DEVICE | grep RG503 | tr -d '\0')"
+  then
+    sudo setfont /usr/share/consolefonts/Lat7-TerminusBold20x10.psf.gz
+  elif test ! -z "$(cat /home/ark/.config/.DEVICE | grep RGB20PRO | tr -d '\0')"
+  then
+    sudo setfont /usr/share/consolefonts/Lat7-TerminusBold32x16.psf.gz
+  else
+    sudo setfont /usr/share/consolefonts/Lat7-TerminusBold22x11.psf.gz
+  fi
+else
+  sudo setfont /usr/share/consolefonts/Lat7-Terminus16.psf.gz
+fi
 
 printf "\033c" > /dev/tty1
 printf "Starting Bluetooth Manager.  Please wait..." > /dev/tty1
@@ -48,9 +66,12 @@ printf "Starting Bluetooth Manager.  Please wait..." > /dev/tty1
 # Joystick controls
 #
 # only one instance
-CONTROLS="/opt/wifi/oga_controls"
-sudo $CONTROLS Bluetooth.sh rg552 &
-sleep 2
+sudo chmod 666 /dev/uinput
+export SDL_GAMECONTROLLERCONFIG_FILE="/opt/inttools/gamecontrollerdb.txt"
+if [[ ! -z $(pgrep -f gptokeyb) ]]; then
+  pgrep -f gptokeyb | sudo xargs kill -9
+fi
+/opt/inttools/gptokeyb -1 "Bluetooth.sh" -c "/opt/inttools/keys.gptk" > /dev/null 2>&1 &
 
 old_ifs="$IFS"
 
@@ -63,14 +84,18 @@ ToggleBT() {
 
 ExitMenu() {
   printf "\033c" > /dev/tty1
-  pgrep -f oga_controls | sudo xargs kill -9
-  sudo pkill ogage
+  if [[ ! -z $(pgrep -f gptokeyb) ]]; then
+    pgrep -f gptokeyb | sudo xargs kill -9
+  fi
+  if [[ ! -e "/dev/input/by-path/platform-odroidgo2-joypad-event-joystick" ]]; then
+    sudo setfont /usr/share/consolefonts/Lat7-Terminus20x10.psf.gz
+  fi
   exit 0
 }
 
 Activate() {
 
-  alist=`timeout 5s bluetoothctl paired-devices`
+  alist=`timeout 5s bluetoothctl devices Paired`
 
   IFS=' '
   unset aoptions
@@ -128,7 +153,7 @@ DisconnectExisting() {
 
 Deactivate() {
 
-  dalist=`timeout 5s bluetoothctl paired-devices`
+  dalist=`timeout 5s bluetoothctl devices Paired`
 
   IFS=' '
   unset daoptions
@@ -188,7 +213,7 @@ Select() {
   dialog --infobox "\nPairing and Connecting to Bluetooth device $1 ..." 5 $width > /dev/tty1
   # try to connect
 
-  alreadypaired=`bluetoothctl paired-devices | grep "$1"`
+  alreadypaired=`bluetoothctl devices Paired | grep "$1"`
   if [ ! -z "$alreadypaired" ]; then
     bluetoothctl remove "$1"
   fi
@@ -281,6 +306,7 @@ DeleteConnect() {
 	    else
 	      output="$1 successfully unpaired from this device via Bluetooth ..."
 	      sudo find /var/lib/bluetooth/ -name "$1" -exec rm {} -rf \;
+	      sudo find /var/lib/bluetooth/ -name "$1" -exec rm {} -rf \;
 	    fi
 	    dialog --infobox "\n$output" 6 $width > /dev/tty1
 	    sleep 3
@@ -291,7 +317,7 @@ DeleteConnect() {
 }
 
 Delete() {
-  dellist=`timeout 5s bluetoothctl paired-devices`
+  dellist=`timeout 5s bluetoothctl devices Paired`
 
   IFS=' '
   unset deloptions
@@ -363,7 +389,7 @@ MainMenu() {
   IFS="$old_ifs"
   while true; do
     mainselection=(dialog \
-   	--backtitle "Bluetooth Manager                  Bluetooth is currently $BT_MStat" \
+   	--backtitle "Bluetooth Manager            Bluetooth is currently $BT_MStat" \
    	--title "Main Menu" \
    	--no-collapse \
    	--clear \
