@@ -11,6 +11,12 @@ rgb10:
 rg353m:
 	./build_rg353m.sh
 
+devenv:
+    ./build_devenv.sh
+
+devenv32:
+    ./build_devenv.sh 32
+
 clean:
 	[ -d "mnt/boot" ] && sudo umount mnt/boot && sudo rm -rf mnt/boot || true
 	[ -d "mnt/roms" ] && sudo umount mnt/roms && sudo rm -rf mnt/roms || true
