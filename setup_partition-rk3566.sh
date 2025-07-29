@@ -14,9 +14,9 @@ elif [[ "$ROOT_FILESYSTEM_FORMAT" == *"ext"* ]]; then
   ROOT_FILESYSTEM_MOUNT_OPTIONS="defaults,noatime"
 fi
 if [[ "$UNIT" == *"353"* ]] || [[ "$UNIT" == *"503"* ]]; then
-  DISK="dArkOS_RG${UNIT}.img"
+  DISK="dArkOS_RG${UNIT}_${DEBIAN_CODE_NAME}_${BUILD_DATE}.img"
 else
-  DISK="dArkOS_${UNIT}.img"
+  DISK="dArkOS_${UNIT}_${DEBIAN_CODE_NAME}_${BUILD_DATE}.img"
 fi
 IMAGE_SIZE=7.5G
 SECTOR_SIZE=512

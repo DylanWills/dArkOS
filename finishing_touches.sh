@@ -222,7 +222,7 @@ sudo chroot Arkbuild/ bash -c "chown -R ark:ark /home/ark"
 # Clone some themes to the tempthemes folder
 sudo mkdir Arkbuild/tempthemes
 if [[ "$UNIT" == *"rgb10"* ]] || [[ "$UNIT" == "rk2020" ]] || [[ "$UNIT" == *"oga"* ]]; then
-  sudo git clone https://github.com/pix33l/es-theme-pixui.git
+  sudo git clone --depth=1 https://github.com/pix33l/es-theme-pixui.git Arkbuild/tempthemes/es-theme-pixui
 fi
 sudo git clone --depth=1 https://github.com/Jetup13/es-theme-freeplay.git Arkbuild/tempthemes/es-theme-freeplay
 sudo git clone --depth=1 https://github.com/Jetup13/es-theme-minimal-arkos.git Arkbuild/tempthemes/es-theme-minimal-arkos

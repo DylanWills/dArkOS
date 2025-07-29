@@ -42,7 +42,7 @@ sudo chroot Arkbuild/ eatmydata apt-get install -y libdrm-dev libgbm1
 setup_ark_user
 sleep 10
 echo -e "Generating /etc/fstab"
-echo -e "/dev/mmcblk1p4 / ${ROOT_FILESYSTEM_FORMAT} defaults,noatime 0 0
+echo -e "/dev/mmcblk1p4 / ${ROOT_FILESYSTEM_FORMAT} ${ROOT_FILESYSTEM_MOUNT_OPTIONS} 0 0
 /dev/mmcblk1p3 /boot vfat defaults,noatime 0 2" | sudo tee Arkbuild/etc/fstab
 echo -e "Generating 10-standard.rules for udev"
 echo -e "# Rules
