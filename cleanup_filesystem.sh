@@ -118,6 +118,7 @@ cd ../../../../
 
 if [[ "${ENABLE_CACHE}" == "y" ]]; then
   sudo rm -f Arkbuild/etc/apt/apt.conf.d/99proxy
+  sudo sed -i '/127.0.0.1:3142\//s///' Arkbuild/etc/apt/sources.list
 fi
 
 call_chroot "ln -sfv /usr/lib/aarch64-linux-gnu/libSDL2.so /usr/lib/aarch64-linux-gnu/libSDL2-2.0.so.0"
