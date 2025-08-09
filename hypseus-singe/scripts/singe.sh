@@ -57,7 +57,7 @@ if [ ! -f $HYPSEUS_SHARE/$SINGEGAME/$SINGEGAME.singe ] || [ ! -f $HYPSEUS_SHARE/
 fi
 
 echo "VAR=hypseus-singe" > /home/ark/.config/KILLIT
-sudo systemctl start killer_daemon.service
+sudo systemctl restart killer_daemon.service
 
 if [ -f "$HYPSEUS_SHARE/$SINGEGAME/$SINGEGAME.commands" ]; then
     EXTRAPARAMS=$(<"$HYPSEUS_SHARE/$SINGEGAME/$SINGEGAME.commands")

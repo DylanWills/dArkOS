@@ -127,7 +127,7 @@ elif [[ ! -f "/$directory/pico-8/pico8.dat" ]] &&  [[ "$1" != *"retroarch"* ]]; 
 fi
 
 echo "VAR=$pico8executable" > /home/ark/.config/KILLIT
-sudo systemctl start killer_daemon.service
+sudo systemctl restart killer_daemon.service
 
 if [ ! -d "/opt/pico-8/bbs" ]; then
   mkdir -p /opt/pico-8/bbs

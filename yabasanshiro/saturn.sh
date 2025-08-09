@@ -13,7 +13,7 @@ if [[ $1 == *"standalone"* ]]; then
     cp -f /etc/emulationstation/es_input.cfg input.cfg
   fi
   echo "VAR=yaba" > /home/ark/.config/KILLIT
-  sudo systemctl start killer_daemon.service
+  sudo systemctl restart killer_daemon.service
   if [[ $1 == "standalone-bios" ]]; then
     if [[ ! -f "/$directory/bios/saturn_bios.bin" ]]; then
       printf "\033c" >> /dev/tty1

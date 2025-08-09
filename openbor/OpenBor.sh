@@ -1,6 +1,6 @@
 #!/bin/sh
 echo "VAR=OpenBOR" > /home/ark/.config/KILLIT
-sudo systemctl start killer_daemon.service
+sudo systemctl restart killer_daemon.service
 #cp "$1" /opt/OpenBor/Paks
 file="$1"
 basefile=$(basename -- "$file")

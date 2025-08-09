@@ -19,7 +19,7 @@ if  [[ $1 == "standalone" ]]; then
   fi
 
   echo "VAR=hypseus-singe" > /home/ark/.config/KILLIT
-  sudo systemctl start killer_daemon.service
+  sudo systemctl restart killer_daemon.service
 
   cd /opt/hypseus-singe
 

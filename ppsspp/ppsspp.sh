@@ -15,7 +15,7 @@ if  [[ $1 == "standalone" ]]; then
     cp -rf /opt/ppsspp/backupforromsfolder/ppsspp/PSP/SYSTEM/ppsspp.ini.sdl /$directory/psp/ppsspp/PSP/SYSTEM/ppsspp.ini.sdl
   fi
   echo "VAR=PPSSPPSDL" > /home/ark/.config/KILLIT
-  sudo systemctl start killer_daemon.service
+  sudo systemctl restart killer_daemon.service
   cp -f /$directory/psp/ppsspp/PSP/SYSTEM/ppsspp.ini.sdl /$directory/psp/ppsspp/PSP/SYSTEM/ppsspp.ini
   xres="$(cat /sys/class/graphics/fb0/modes | grep -o -P '(?<=:).*(?=p-)' | cut -dx -f1)"
   if [ $xres -ge "1280" ]; then
@@ -36,7 +36,7 @@ elif [[ $1 == "standalone-2021" ]]; then
   fi
   export SDL_AUDIODRIVER=alsa
   echo "VAR=PPSSPPSDL" > /home/ark/.config/KILLIT
-  sudo systemctl start killer_daemon.service
+  sudo systemctl restart killer_daemon.service
   cp -f /$directory/psp/ppsspp/PSP/SYSTEM/ppsspp.ini.sdl /$directory/psp/ppsspp/PSP/SYSTEM/ppsspp.ini
   /opt/ppsspp-2021/PPSSPPSDL --fullscreen "$2"
   cp -f /$directory/psp/ppsspp/PSP/SYSTEM/ppsspp.ini /$directory/psp/ppsspp/PSP/SYSTEM/ppsspp.ini.sdl

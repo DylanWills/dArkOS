@@ -3,7 +3,7 @@
 if [[ $1 == "standalone" ]]; then
     directory=$(dirname "$2" | cut -d "/" -f2)
     echo "VAR=lzdoom" > /home/ark/.config/KILLIT
-    sudo systemctl start killer_daemon.service
+    sudo systemctl restart killer_daemon.service
 	if [ ".$(echo "$2"| cut -d. -f2)" == ".sh" ] || [ ".$(echo "$2"| cut -d. -f2)" == ".SH" ]; then
 	dos2unix "${2}"
         "$2"
@@ -32,7 +32,7 @@ if [[ $1 == "standalone" ]]; then
 elif [[ $1 == "standalone-gzdoom" ]]; then
         directory=$(dirname "$2" | cut -d "/" -f2)
         echo "VAR=gzdoom" > /home/ark/.config/KILLIT
-        sudo systemctl start killer_daemon.service
+        sudo systemctl restart killer_daemon.service
         if [ ".$(echo "$2"| cut -d. -f2)" == ".sh" ] || [ ".$(echo "$2"| cut -d. -f2)" == ".SH" ]; then
         dos2unix "${2}"
         "$2"

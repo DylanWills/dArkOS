@@ -51,7 +51,7 @@ then
   done < "${2}"
   cd "/$directory/wolf/$gamedir"
   echo "VAR=ecwolf" > /home/ark/.config/KILLIT
-  sudo systemctl start killer_daemon.service
+  sudo systemctl restart killer_daemon.service
   SDL_GAMECONTROLLERCONFIG="$sdl_controllerconfig" /opt/ecwolf/ecwolf --savedir "/$directory/wolf/${gamedir}" ${params}
   sudo systemctl stop killer_daemon.service
   sudo systemctl restart ogage &
@@ -70,7 +70,7 @@ then
   filename="$(basename "$2")"
   cd "/$directory/wolf/${filename%.*}"
   echo "VAR=ecwolf" > /home/ark/.config/KILLIT
-  sudo systemctl start killer_daemon.service
+  sudo systemctl restart killer_daemon.service
   SDL_GAMECONTROLLERCONFIG="$sdl_controllerconfig" /opt/ecwolf/ecwolf --savedir "/$directory/wolf/${filename%.*}"
   sudo systemctl stop killer_daemon.service
   sudo systemctl restart ogage &

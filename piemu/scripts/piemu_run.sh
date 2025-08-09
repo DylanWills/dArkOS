@@ -101,7 +101,7 @@ if [[ "$EXTENSION" == "pfs" ]]; then
 fi
 
 echo "VAR=piemu" > /home/ark/.config/KILLIT
-sudo systemctl start killer_daemon.service
+sudo systemctl restart killer_daemon.service
 
 SDL_GAMECONTROLLERCONFIG="$sdl_controllerconfig" /opt/piemu/piemu
 

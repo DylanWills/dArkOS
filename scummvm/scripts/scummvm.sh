@@ -31,7 +31,7 @@ elif [[ $1 == "standalone" ]] && [[ ${2,,} != *"menu.scummvm"* ]]
 then
   cd /opt/scummvm
   echo "VAR=scummvm" > /home/ark/.config/KILLIT
-  sudo systemctl start killer_daemon.service
+  sudo systemctl restart killer_daemon.service
   DIR="$( cd "$( dirname "${2}" )" >/dev/null 2>&1 && pwd )/"
   ./scummvm --auto-detect --path="$DIR"
   sudo systemctl stop killer_daemon.service
@@ -40,7 +40,7 @@ elif [[ $1 == "standalone" ]] && [[ ${2,,} == *"menu.scummvm"* ]]
 then
   cd /opt/scummvm
   echo "VAR=scummvm" > /home/ark/.config/KILLIT
-  sudo systemctl start killer_daemon.service
+  sudo systemctl restart killer_daemon.service
   ./scummvm
   sudo systemctl stop killer_daemon.service
   sudo systemctl restart ogage &

@@ -16,7 +16,7 @@ if  [[ ! -d "/${directory}/nds/slot2" ]]; then
 fi
 
 echo "VAR=drastic" > /home/ark/.config/KILLIT
-sudo systemctl start killer_daemon.service
+sudo systemctl restart killer_daemon.service
 
 cd /opt/drastic
 ./drastic "$1"
