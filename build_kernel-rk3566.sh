@@ -41,7 +41,7 @@ if [ "$UNIT" == "503" ]; then
 else
   sudo cp $KERNEL_SRC/arch/arm64/boot/dts/rockchip/${UNIT_DTB}.dtb ${mountpoint}/
   if [ "$UNIT" == "rgb30" ]; then
-    mkdir -p Arkbuild/usr/local/bin/rgb30dtbs/
+    sudo mkdir -p Arkbuild/usr/local/bin/rgb30dtbs/
     sudo cp $KERNEL_SRC/arch/arm64/boot/dts/rockchip/${UNIT_DTB}.dtb Arkbuild/usr/local/bin/rgb30dtbs/${UNIT_DTB}.dtb.v1
     sudo cp $KERNEL_SRC/arch/arm64/boot/dts/rockchip/${UNIT_DTB}-v2.dtb Arkbuild/usr/local/bin/rgb30dtbs/${UNIT_DTB}.dtb.v2
   fi
