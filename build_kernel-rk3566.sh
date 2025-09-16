@@ -17,7 +17,7 @@ if [ "$UNIT" == "rgb30" ]; then
   if [[ $? != "0" ]]; then
     sudo apt -y install netpbm
   fi
-  pngtopnm logos/unrotated/dArkosrgb30.png | ppmquant 224 | pnmnoraw > drivers/video/logo/logo_linux_clut224.ppm
+  pngtopnm ../logos/unrotated/dArkosrgb30.png | ppmquant 224 | pnmnoraw > drivers/video/logo/logo_linux_clut224.ppm
 fi
 if [ "$UNIT" != "503" ] && [[ "$UNIT" != *"353"* ]]; then
   make ARCH=arm64 rk3566_optimized_with_wifi_linux_defconfig
