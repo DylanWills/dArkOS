@@ -145,6 +145,9 @@ echo -e "Generating 20-usb-alsa.rules udev for usb dac support"
 echo -e "KERNEL==\"controlC[0-9]*\", DRIVERS==\"usb\", SYMLINK=\"snd/controlC7\"" | sudo tee Arkbuild/etc/udev/rules.d/20-usb-alsa.rules
 sudo chroot Arkbuild/ bash -c "(crontab -l 2>/dev/null; echo \"@reboot /usr/local/bin/checknswitchforusbdac.sh &\") | crontab -"
 
+# Disable requirement for sudo for setting niceness
+echo "ark              -       nice            -20" | sudo tee -a Arkbuild/etc/security/limits.conf
+
 # For RGB30 Units Only.  Check for v1 or v2 units and change dtbs due to performance issues.
 # Also provide some battery life status indication
 if [[ "$UNIT" == "rgb30" ]]; then
@@ -173,6 +176,10 @@ sudo cp scripts/checkbrightonboot Arkbuild/usr/local/bin/
 sudo cp scripts/current_* Arkbuild/usr/local/bin/
 sudo cp scripts/finish.sh Arkbuild/usr/local/bin/
 sudo cp scripts/pause.sh Arkbuild/usr/local/bin/
+sudo cp scripts/finish.sh.qm Arkbuild/usr/local/bin/
+sudo cp scripts/pause.sh.qm Arkbuild/usr/local/bin/
+sudo cp scripts/finish.sh Arkbuild/usr/local/bin/finish.sh.orig
+sudo cp scripts/pause.sh Arkbuild/usr/local/bin/pause.sh.orig
 sudo cp scripts/speak_bat_life.sh Arkbuild/usr/local/bin/
 sudo cp scripts/spktoggle.sh Arkbuild/usr/local/bin/
 sudo cp scripts/volume.sh Arkbuild/usr/local/bin/
@@ -180,6 +187,7 @@ sudo cp scripts/${CHIPSET}/* Arkbuild/usr/local/bin/
 sudo cp scripts/timezones Arkbuild/usr/local/bin/
 sudo cp scripts/BaRT_QuickMode.sh Arkbuild/usr/local/bin/
 sudo cp scripts/"Enable Quick Mode".sh Arkbuild/usr/local/bin/
+sudo cp scripts/"Disable Quick Mode".sh Arkbuild/usr/local/bin/
 sudo cp scripts/arkos_ap_mode.sh Arkbuild/usr/local/bin/
 sudo cp scripts/auto_suspend* Arkbuild/usr/local/bin/
 sudo cp scripts/processcheck.sh Arkbuild/usr/local/bin/

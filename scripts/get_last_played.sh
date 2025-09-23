@@ -8,10 +8,10 @@ fi
 if [[ ${@} == "pico8" ]]; then
   filename="$2"
   ext="${filename##*.}"
-  Directory=`grep pico-8 /etc/emulationstation/es_systems.cfg | head -1 | grep -oP '(?<path>/).*?(?=/pico-8)' | cut -c2-`
+  Directory=`grep pico-8 /etc/emulationstation/es_systems.cfg | head -2 | grep -oP '(?<path>/).*?(?=/pico-8)' | cut -c2-`
   if [[ ! -e /dev/shm/Splore_Loaded ]]; then
-    Last_Game=`tac /${Directory}/pico-8/activity_log.txt | grep -m1 "${ext}" | grep -oP '(?<= /).*'`
-    Last_Game_Name=`tac /${Directory}/pico-8/activity_log.txt | grep -m1 "${ext}" | grep -oP '(?<= /).*' | awk 'BEGIN {FS="/" } { print $4 }'`
+    Last_Game=`tac /opt/pico-8/activity_log.txt | grep -m1 "${ext}" | grep -oP '(?<= /).*'`
+    Last_Game_Name=`tac /opt/pico-8/activity_log.txt | grep -m1 "${ext}" | grep -oP '(?<= /).*' | awk 'BEGIN {FS="/" } { print $4 }'`
     Last_Game_Name_Noext=`echo "$Last_Game_Name" | rev | cut -d"." -f2-8  | rev`
     if [ -f "/home/ark/.emulationstation/recovery/PICO-8/"$Last_Game_Name_Noext".xml" ]; then
       Last_Emulator=`sed -n "/$Last_Game_Name/{n;n;p}" /home/ark/.emulationstation/recovery/PICO-8/"$Last_Game_Name_Noext".xml | grep "<emulator>" |  grep -oP '(?<=>).*?(?=<)'`
@@ -26,7 +26,7 @@ if [[ ${@} == "pico8" ]]; then
       fi
     fi
 
-    echo "nice -n -19 /usr/local/bin/pico8.sh \"${Last_Emulator}\" \"/${Last_Game}\""
+    echo "SDL_VIDEO_EGL_DRIVER=\"libEGL.so\" nice -n -19 /usr/local/bin/pico8.sh \"${Last_Emulator}\" \"/${Last_Game}\""
   else
     if [ -f "/home/ark/.emulationstation/recovery/PICO-8/zzzsplore.xml" ]; then
       Last_Emulator=`sed -n "/zzzsplore.p8/{n;n;p}" /home/ark/.emulationstation/recovery/PICO-8/zzzsplore.xml | grep "<emulator>" |  grep -oP '(?<=>).*?(?=<)'`
@@ -40,7 +40,7 @@ if [[ ${@} == "pico8" ]]; then
         fi
       fi
     fi
-    echo "nice -n -19 /usr/local/bin/pico8.sh \"${Last_Emulator}\" \"/${Directory}/pico-8/carts/zzzsplore.png\""
+    echo "SDL_VIDEO_EGL_DRIVER=\"libEGL.so\" nice -n -19 /usr/local/bin/pico8.sh \"${Last_Emulator}\" \"/${Directory}/pico-8/carts/zzzsplore.png\""
   fi
   exit 0
 elif [[ -e /dev/shm/PNG_Loaded ]]; then
@@ -124,6 +124,6 @@ if [[ "$(cat /dev/shm/governor_settings.state)" == *"userspace"* ]]; then
   fi
 fi
 
-echo "/usr/local/bin/${@} -L ${Last_Core} \"${Last_Game}\""
+echo "SDL_VIDEO_EGL_DRIVER=\"libEGL.so\" /usr/local/bin/${@} -L ${Last_Core} \"${Last_Game}\""
 
 exit 0

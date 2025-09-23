@@ -56,9 +56,9 @@ else
   clear > /dev/tty1
 fi
 
-chmod 777 /sys/devices/platform/${gpu}.gpu/devfreq/${gpu}.gpu/governor
-chmod 777 /sys/devices/system/cpu/cpufreq/policy0/scaling_governor
-chmod 777 /sys/devices/platform/dmc/devfreq/dmc/governor
+sudo chmod 777 /sys/devices/platform/${gpu}.gpu/devfreq/${gpu}.gpu/governor
+sudo chmod 777 /sys/devices/system/cpu/cpufreq/policy0/scaling_governor
+sudo chmod 777 /sys/devices/platform/dmc/devfreq/dmc/governor
 
 if [[ "$1" == "kodi" ]]; then
   echo "performance" > /sys/devices/platform/${gpu}.gpu/devfreq/${gpu}.gpu/governor

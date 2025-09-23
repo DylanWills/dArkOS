@@ -26,6 +26,10 @@ else
   clear > /dev/tty1
 fi
 
+sudo chmod 777 /sys/devices/platform/${gpu}.gpu/devfreq/${gpu}.gpu/governor
+sudo chmod 777 /sys/devices/system/cpu/cpufreq/policy0/scaling_governor
+sudo chmod 777 /sys/devices/platform/dmc/devfreq/dmc/governor
+
 echo simple_ondemand > /sys/devices/platform/${gpu}.gpu/devfreq/${gpu}.gpu/governor
 echo ondemand > /sys/devices/system/cpu/cpufreq/policy0/scaling_governor
 echo dmc_ondemand > /sys/devices/platform/dmc/devfreq/dmc/governor
