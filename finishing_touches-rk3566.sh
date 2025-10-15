@@ -34,8 +34,13 @@ echo -e "# This host address\n127.0.1.1\t${NAME}" | sudo tee -a Arkbuild/etc/hos
 #sudo sed -i "0,/localhost/s//localhost ${NAME}/1" Arkbuild/etc/hosts
 
 # Copy the necessary .asoundrc file for proper audio in emulationstation and emulators
-sudo cp audio/.asoundrc.${CHIPSET} Arkbuild/home/ark/.asoundrc
-sudo cp audio/.asoundrcbak.${CHIPSET} Arkbuild/home/ark/.asoundrcbak
+if [[ "$UNIT" == "353v" ]]; then
+  sudo cp scripts/.asoundbackup/.asoundrcbak.rg353v Arkbuild/home/ark/.asoundrc
+  sudo cp scripts/.asoundbackup/.asoundrcbak.rg353v Arkbuild/home/ark/.asoundrcbak
+else
+  sudo cp audio/.asoundrc.${CHIPSET} Arkbuild/home/ark/.asoundrc
+  sudo cp audio/.asoundrcbak.${CHIPSET} Arkbuild/home/ark/.asoundrcbak
+fi
 sudo cp audio/.asoundrcbt.${CHIPSET} Arkbuild/home/ark/.asoundrcbt
 sudo chroot Arkbuild/ bash -c "chown ark:ark /home/ark/.asoundrc*"
 sudo chroot Arkbuild/ bash -c "ln -sfv /home/ark/.asoundrc /etc/asound.conf"
@@ -161,6 +166,17 @@ if [[ "$UNIT" == "rgb30" ]]; then
   sudo cp scripts/rgb30/*.sh Arkbuild/usr/local/bin/
   sudo chroot Arkbuild/ bash -c "(crontab -l 2>/dev/null; echo \"@reboot /usr/local/bin/rgb30versioncheck.sh &\") | crontab -"
   sudo chroot Arkbuild/ bash -c "systemctl enable batt_led"
+fi
+
+# For RGB20Pro Units Only.  Allows for different LED states
+# Also provide some battery life status indication
+if [[ "$UNIT" == "rgb20pro" ]]; then
+  sudo cp scripts/rgb20pro/*.py Arkbuild/usr/local/bin/
+  sudo cp scripts/rgb20pro/*.service Arkbuild/etc/systemd/system/
+  sudo cp scripts/rgb20pro/sleep Arkbuild/usr/lib/systemd/system-sleep/sleep
+  sudo chmod 777 Arkbuild/usr/lib/systemd/system-sleep/sleep
+  sudo chroot Arkbuild/ bash -c "systemctl enable batt_led"
+  sudo chroot Arkbuild/ bash -c "systemctl enable charge_led"
 fi
 
 # Speaker Toggle to set audio output to SPK on boot
