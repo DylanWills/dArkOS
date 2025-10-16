@@ -89,6 +89,7 @@ if [ "$?" -eq "10" ]; then
                           "1)") kill_boot_controls
                                 printf "\033c" > /dev/tty1
                                 sudo systemctl restart ogage &
+                                [ -f "/home/ark/.config/.BOOT_TO_RETROARCH" ] && rm -f /home/ark/.config/.BOOT_TO_RETROARCH
                                 /usr/bin/emulationstation/emulationstation.sh
                                 exit
                                 ;;
@@ -99,8 +100,8 @@ if [ "$?" -eq "10" ]; then
                                     touch ~/.config/.setxmb
                                   fi
                                 fi
+                                touch /home/ark/.config/.BOOT_TO_RETROARCH
                                 kill_boot_controls
-                                sudo cp -f /usr/bin/emulationstation/emulationstation.sh.ra /usr/bin/emulationstation/emulationstation.sh
                                 sed -i '/input_exit_emulator_btn/s//;input_exit_emulator_btn/g' /home/ark/.config/retroarch/retroarch.cfg
                                 printf "\033c" > /dev/tty1
                                 sudo systemctl restart ogage &
@@ -146,24 +147,38 @@ if [ "$?" -eq "10" ]; then
           done
   done
 else
-  esdir="$(dirname $0)"
-  while true; do
-      rm -f /tmp/es-restart /tmp/es-sysrestart /tmp/es-shutdown
-      "$esdir/emulationstation" "$@"
-      ret=$?
-      [ -f /tmp/es-restart ] && continue
-      if [ -f /tmp/es-sysrestart ]; then
-          rm -f /tmp/es-sysrestart
-          systemctl reboot
-          break
-      fi
-      if [ -f /tmp/es-shutdown ]; then
-          rm -f /tmp/es-shutdown
-          systemctl poweroff
-          break
-      fi
-      break
-  done
-  exit $ret
+  if [ ! -f "/home/ark/.config/.BOOT_TO_RETROARCH" ]; then
+    esdir="$(dirname $0)"
+    while true; do
+        rm -f /tmp/es-restart /tmp/es-sysrestart /tmp/es-shutdown
+        "$esdir/emulationstation" "$@"
+        ret=$?
+        [ -f /tmp/es-restart ] && continue
+        if [ -f /tmp/es-sysrestart ]; then
+            rm -f /tmp/es-sysrestart
+            systemctl reboot
+            break
+        fi
+        if [ -f /tmp/es-shutdown ]; then
+            rm -f /tmp/es-shutdown
+            systemctl poweroff
+            break
+        fi
+        break
+    done
+    exit $ret
+  else
+    if [[ "$(tr -d '\0' < /proc/device-tree/compatible)" == *"rk3326"* ]]; then
+      gpu="ff400000"
+    else
+      gpu="fde60000"
+    fi
+    echo performance | sudo tee /sys/devices/platform/${gpu}.gpu/devfreq/${gpu}.gpu/governor
+    echo performance | sudo tee /sys/devices/system/cpu/cpufreq/policy0/scaling_governor
+    echo performance | sudo tee /sys/devices/platform/dmc/devfreq/dmc/governor
+    while true; do
+      retroarch "$@"
+    done
+  fi
 fi
 

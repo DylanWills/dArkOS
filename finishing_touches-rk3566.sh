@@ -34,7 +34,7 @@ echo -e "# This host address\n127.0.1.1\t${NAME}" | sudo tee -a Arkbuild/etc/hos
 #sudo sed -i "0,/localhost/s//localhost ${NAME}/1" Arkbuild/etc/hosts
 
 # Copy the necessary .asoundrc file for proper audio in emulationstation and emulators
-if [[ "$UNIT" == "353v" ]]; then
+if [[ "$UNIT" == "353v" ]] || [[ "$UNIT" == "rgb20pro" ]]; then
   sudo cp scripts/.asoundbackup/.asoundrcbak.rg353v Arkbuild/home/ark/.asoundrc
   sudo cp scripts/.asoundbackup/.asoundrcbak.rg353v Arkbuild/home/ark/.asoundrcbak
 else

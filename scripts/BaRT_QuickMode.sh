@@ -1,28 +1,38 @@
 #!/bin/bash
 
-event_num="3"
-event_type="EV_KEY"
-event_btn="BTN_SOUTH"
-if [[ -e "/dev/input/by-path/platform-fe5b0000.i2c-event" ]]; then
-  event_num="4"
-  param_device="rg552"
-elif [[ -e "/dev/input/by-path/platform-ff300000.usb-usb-0:1.2:1.0-event-joystick" ]]; then
-  param_device="anbernic"
-  event_num="3"
-  event_btn="BTN_EAST"
-elif [[ -e "/dev/input/by-path/platform-odroidgo2-joypad-event-joystick" ]]; then
-    if [[ ! -z $(cat /etc/emulationstation/es_input.cfg | grep "190000004b4800000010000001010000") ]]; then
-      param_device="oga"
-        else
-          param_device="rk2020"
-        fi
-elif [[ -e "/dev/input/by-path/platform-odroidgo3-joypad-event-joystick" ]]; then
-  param_device="ogs"
-elif [[ -e "/dev/input/by-path/platform-singleadc-joypad-event-joystick" ]]; then
-  param_device="rg552"
-else
-  param_device="chi"
-fi
+export SDL_ASSERT="always_ignore"
+
+. /usr/local/bin/buttonmon.sh
+
+boot_controls() {
+  export DIALOGRC=/opt/inttools/noshadows.dialogrc
+  printf "\033c" > /dev/tty1
+  if [[ ! -e "/dev/input/by-path/platform-odroidgo2-joypad-event-joystick" ]]; then
+    if test ! -z "$(cat /home/ark/.config/.DEVICE | grep RGB20PRO | tr -d '\0')"
+    then
+      sudo setfont /usr/share/consolefonts/Lat7-TerminusBold32x16.psf.gz
+    else
+      sudo setfont /usr/share/consolefonts/Lat7-TerminusBold28x14.psf.gz
+    fi
+  else
+    sudo setfont /usr/share/consolefonts/Lat7-Terminus16.psf.gz
+  fi
+
+  if [[ -z $(pgrep -f gptokeyb) ]] && [[ -z $(pgrep -f oga_controls) ]]; then
+    sudo chmod 666 /dev/uinput
+    export SDL_GAMECONTROLLERCONFIG_FILE="/opt/inttools/gamecontrollerdb.txt"
+    /opt/inttools/gptokeyb -c "/opt/inttools/keys.gptk" > /dev/null &
+    disown
+    set_gptokeyb="Y"
+  fi
+}
+
+kill_boot_controls() {
+  if [[ ! -z "$set_gptokeyb" ]]; then
+    pgrep -f gptokeyb | sudo xargs kill -9
+    unset SDL_GAMECONTROLLERCONFIG_FILE
+  fi
+}
 
 sudo chmod 666 /dev/tty1
 export TERM=linux
@@ -40,12 +50,22 @@ function KillQuickMode(){
   rm /home/ark/.config/lastgame.sh
 }
 
-evtest --query /dev/input/event$event_num $event_type $event_btn
+Test_Button_B
 if [ "$?" -eq "10" ]; then
   printf "\033c" > /dev/tty1
-  sudo setfont /usr/share/consolefonts/Lat7-Terminus20x10.psf.gz
+  if [[ ! -e "/dev/input/by-path/platform-odroidgo2-joypad-event-joystick" ]]; then
+    if test ! -z "$(cat /home/ark/.config/.DEVICE | grep RGB20PRO | tr -d '\0')"
+    then
+      sudo setfont /usr/share/consolefonts/Lat7-TerminusBold32x16.psf.gz
+    else
+      sudo setfont /usr/share/consolefonts/Lat7-TerminusBold28x14.psf.gz
+    fi
+  else
+    sudo setfont /usr/share/consolefonts/Lat7-Terminus16.psf.gz
+  fi
   cd /usr/bin/emulationstation
-  sudo ./boot_controls none $param_device &
+
+  boot_controls
   while true; do
 
           selection=(dialog \
@@ -72,33 +92,33 @@ if [ "$?" -eq "10" ]; then
 
           for choice in $choices; do
                   case $choice in
-                          "1)") sudo kill -9 $(pidof boot_controls)
+                          "1)") kill_boot_controls
                                 printf "\033c" > /dev/tty1
                                 sudo systemctl restart ogage &
                                 exit
                                 ;;
-                          "2)") sudo kill -9 $(pidof boot_controls)
+                          "2)") kill_boot_controls
                                 KillQuickMode
                                 sudo systemctl restart ogage &
                                 sudo systemctl restart firstboot &
                                 sudo systemctl restart emulationstation
                                 exit
                                 ;;
-                          "3)") sudo kill -9 $(pidof boot_controls)
+                          "3)") kill_boot_controls
                                 /opt/system/Wifi.sh
-                                sudo ./boot_controls none $param_device &
+                                boot_controls
                                 ;;
                           "4)") /opt/system/Enable\ Remote\ Services.sh 2>&1 > /dev/tty1
                                 ;;
                           "5)") /opt/system/351Files.sh 2>&1 > /dev/tty1
                                 ;;
-                          "6)") sudo kill -9 $(pidof boot_controls)
+                          "6)") kill_boot_controls
                                 /opt/system/Advanced/"Backup ArkOS Settings.sh" 2>&1 > /dev/tty1
-                                sudo ./boot_controls none $param_device &
+                                boot_controls
                                 ;;
-                          "7)") sudo kill -9 $(pidof boot_controls)
+                          "7)") kill_boot_controls
                                 /opt/system/Advanced/"Restore ArkOS Settings.sh" 2>&1 > /dev/tty1
-                                sudo ./boot_controls none $param_device &
+                                boot_controls
                                 ;;
                           "8)") sudo reboot
                                 ;;
