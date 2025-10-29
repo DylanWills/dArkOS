@@ -21,12 +21,14 @@ libasound2t64
 libboost-filesystem1.83.0
 libboost-filesystem1.88.0
 libfaad2
+libfreeimage3
 libfreetype6
 libglew2.2
 libgtk-3-0t64
 libluajit-5.1-2
 liblzma5
 libmad0
+libmodplug1
 libmpeg2-4
 libogg0
 libopenal1

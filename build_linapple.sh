@@ -24,7 +24,7 @@ else
 	if [ -f "Arkbuild_package_cache/${CHIPSET}/linapplesa.commit" ]; then
 	  sudo rm -f Arkbuild_package_cache/${CHIPSET}/linapplesa.commit
 	fi
-	sudo tar -czpf Arkbuild_package_cache/${CHIPSET}/linapplesa.tar.gz Arkbuild/opt/linapple/ Arkbuild/usr/lib/libSDL_image-1.2.so.0*
+	sudo tar -czpf Arkbuild_package_cache/${CHIPSET}/linapplesa.tar.gz Arkbuild/opt/linapple/ Arkbuild/usr/lib/libSDL_image-1.2.so.0* Arkbuild//usr/local/lib/libSDLmain.a Arkbuild/usr/local/lib/libSDL-1.2.so* Arkbuild/usr/local/lib/libSDL.so Arkbuild/usr/local/bin/sdl-config Arkbuild/usr/local/include/SDL/ Arkbuild/usr/local/lib/pkgconfig/sdl12_compat.pc Arkbuild/usr/local/share/aclocal/sdl.m4
 	sudo git --git-dir=Arkbuild/home/ark/${CHIPSET}_core_builds/linapple/.git --work-tree=Arkbuild/home/ark/${CHIPSET}_core_builds/linapple rev-parse HEAD > Arkbuild_package_cache/${CHIPSET}/linapplesa.commit
 fi
 

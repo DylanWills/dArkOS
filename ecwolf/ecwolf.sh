@@ -16,7 +16,7 @@ else
   sdl_controllerconfig="19000000030000000300000002030000,gameforce_gamepad,leftstick:b14,rightx:a3,leftshoulder:b4,start:b9,lefty:a0,dpup:b10,righty:a2,a:b1,b:b0,guide:b16,dpdown:b11,rightshoulder:b5,righttrigger:b7,rightstick:b15,dpright:b13,x:b2,back:b8,leftx:a1,y:b3,dpleft:b12,lefttrigger:b6,platform:Linux,"
 fi
 
-if [ -f "/opt/system/Advanced/Switch to main SD for Roms.sh" ]; then
+if [ -f "/opt/system/Advanced/Switch to Main SD for Roms.sh" ]; then
   directory="roms2"
 else
   directory="roms"
