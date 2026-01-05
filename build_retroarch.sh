@@ -102,6 +102,15 @@ sudo find Arkbuild/home/ark/.config/retroarch/assets/ -maxdepth 1 ! -name assets
                                                                   ! -name switch \
                                                                   ! -name xmb \
                                                                   ! -name COPYING -type d,f -not -path '.' -exec rm -rf {} +
+# Download and add retroarch shaders
+sudo mkdir -p Arkbuild/home/ark/.config/retroarch/shaders/shaders_glsl/Sharp-Shimmerless
+sudo git clone --depth=1 https://github.com/libretro/glsl-shaders.git Arkbuild/home/ark/.config/retroarch/shaders/shaders_glsl/
+sudo rm -f Arkbuild/home/ark/.config/retroarch/shaders/shaders_glsl/{configure,Makefile}
+sudo git clone --depth=1 https://github.com/Woohyun-Kang/Sharp-Shimmerless-Shader.git Arkbuild/home/ark/.config/retroarch/shaders/shaders_glsl/Sharp-Shimmerless/
+sudo rm -rf Arkbuild/home/ark/.config/retroarch/shaders/shaders_glsl/Sharp-Shimmerless/shaders_slang/
+sudo mv Arkbuild/home/ark/.config/retroarch/shaders/shaders_glsl/Sharp-Shimmerless/shaders_glsl/* Arkbuild/home/ark/.config/retroarch/shaders/shaders_glsl/Sharp-Shimmerless/
+sudo rm -rf Arkbuild/home/ark/.config/retroarch/shaders/shaders_glsl/Sharp-Shimmerless/shaders_glsl/
+
 if [[ "${BUILD_ARMHF}" == "y" ]]; then
 	if [ -f "Arkbuild_package_cache/${CHIPSET}/retroarch32_${UNIT}.tar.gz" ] && [ "$(cat Arkbuild_package_cache/${CHIPSET}/retroarch32_${UNIT}.commit)" == "$(curl -s https://raw.githubusercontent.com/christianhaitian/${CHIPSET}_core_builds/refs/heads/master/scripts/retroarch.sh | grep -oP '(?<=tag=").*?(?=")')" ]; then
       sudo tar -xvzpf Arkbuild_package_cache/${CHIPSET}/retroarch32_${UNIT}.tar.gz
@@ -198,5 +207,14 @@ if [[ "${BUILD_ARMHF}" == "y" ]]; then
 																	  ! -name switch \
 																	  ! -name xmb \
 																	  ! -name COPYING -type d,f -not -path '.' -exec rm -rf {} +
+
+	# Download and add retroarch shaders
+	sudo mkdir -p Arkbuild/home/ark/.config/retroarch32/shaders/shaders_glsl/Sharp-Shimmerless
+	sudo git clone --depth=1 https://github.com/libretro/glsl-shaders.git Arkbuild/home/ark/.config/retroarch32/shaders/shaders_glsl/
+	sudo rm -f Arkbuild/home/ark/.config/retroarch32/shaders/shaders_glsl/{configure,Makefile}
+	sudo git clone --depth=1 https://github.com/Woohyun-Kang/Sharp-Shimmerless-Shader.git Arkbuild/home/ark/.config/retroarch32/shaders/shaders_glsl/Sharp-Shimmerless/
+	sudo rm -rf Arkbuild/home/ark/.config/retroarch32/shaders/shaders_glsl/Sharp-Shimmerless/shaders_slang/
+	sudo mv Arkbuild/home/ark/.config/retroarch32/shaders/shaders_glsl/Sharp-Shimmerless/shaders_glsl/* Arkbuild/home/ark/.config/retroarch32/shaders/shaders_glsl/Sharp-Shimmerless/
+	sudo rm -rf Arkbuild/home/ark/.config/retroarch32/shaders/shaders_glsl/Sharp-Shimmerless/shaders_glsl/
 fi
 call_chroot "chown -R ark:ark /home/ark/.config/"
