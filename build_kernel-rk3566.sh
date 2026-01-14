@@ -87,9 +87,15 @@ sudo rm -f ${mountpoint}/initrd.img
 # Build uboot and resource and install it to the image
 cd $KERNEL_SRC
 if [ "$UNIT" == "503" ] || [[ "$UNIT" == *"353"* ]]; then
-  cp arch/arm64/boot/dts/rockchip/${UNIT_DTB}.dtb .
+  #cp arch/arm64/boot/dts/rockchip/${UNIT_DTB}.dtb .
   # Next line generates the resource.img file needed to flash to the image and to build the uboot
-  scripts/mkimg --dtb ${UNIT_DTB}.dtb
+  git clone --depth=1 https://github.com/rockchip-linux/rkbin
+  cd rkbin/tools
+  ./resource_tool --pack ../../arch/arm64/boot/dts/rockchip/${UNIT_DTB}.dtb
+  cp resource.img ../../.
+  cd ../..
+  rm -rf rkbin
+  #scripts/mkimg --dtb ${UNIT_DTB}.dtb
 else
   # For some reason, supported PowKiddy rk3566 devices need resource.img generated from the RG503 Kernel source
   git clone --recursive --depth=1 https://github.com/christianhaitian/rg503Kernel.git
