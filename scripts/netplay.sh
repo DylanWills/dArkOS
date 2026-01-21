@@ -555,7 +555,7 @@ fi
 printf "\033c" > /dev/tty0
 dialog --clear
 
-if [[ -z $(ifconfig | grep wlan0 | tr -d '\0') ]]; then
+if [[ -z $(ip a | grep wlan0 | tr -d '\0') ]]; then
   dialog --infobox "\nYou currently do not have a compatible wireless adapter connected or enabled.  Exiting..." 5 $width 2>&1 > /dev/tty0
   sleep 5
   ExitCode="0"

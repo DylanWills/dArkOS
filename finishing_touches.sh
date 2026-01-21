@@ -245,13 +245,15 @@ sudo cp scripts/gx4000.sh Arkbuild/usr/local/bin/
 sudo cp scripts/isitpng.sh Arkbuild/usr/local/bin/
 sudo cp scripts/neogeocd.sh Arkbuild/usr/local/bin/
 sudo cp scripts/netplay.sh Arkbuild/usr/local/bin/
+sudo mkdir -p Arkbuild/etc/hostapd
+sudo cp hostapd/hostapd.config Arkbuild/etc/hostapd/
 sudo cp scripts/sleep_governors.sh Arkbuild/usr/local/bin/
 sudo cp scripts/wasitpng.sh Arkbuild/usr/local/bin/
 sudo cp global/* Arkbuild/usr/local/bin/
 # Disable winbind as connectivity to Active Directory is not needed
 sudo chroot Arkbuild/ bash -c "systemctl disable winbind"
-# Disable samba-ad-dc as connectivity to Active Directory is not needed
-sudo chroot Arkbuild/ bash -c "systemctl disable samba-ad-dc"
+# Disable samba-ad-dc as connectivity to Active Directory is not needed as well as some other services
+sudo chroot Arkbuild/ bash -c "systemctl disable samba-ad-dc dnsmasq hostapd"
 # Disable e2scrub_reap if ext file system is not being used for rootfs
 if [ "$ROOT_FILESYSTEM_FORMAT" == "xfs" ] || [ "$ROOT_FILESYSTEM_FORMAT" == "btrfs" ]; then
   sudo chroot Arkbuild/ bash -c "systemctl disable e2scrub_reap"
