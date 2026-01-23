@@ -266,7 +266,8 @@ sudo cp scripts/isitpng.sh Arkbuild/usr/local/bin/
 sudo cp scripts/neogeocd.sh Arkbuild/usr/local/bin/
 sudo cp scripts/netplay.sh Arkbuild/usr/local/bin/
 sudo mkdir -p Arkbuild/etc/hostapd
-sudo cp hostapd/hostapd.config Arkbuild/etc/hostapd/
+sudo cp hostapd/hostapd.conf Arkbuild/etc/hostapd/
+sudo cp dnsmasq/dnsmasq.conf Arkbuild/etc/
 sudo cp scripts/sleep_governors.sh Arkbuild/usr/local/bin/
 sudo cp scripts/wasitpng.sh Arkbuild/usr/local/bin/
 sudo cp global/* Arkbuild/usr/local/bin/

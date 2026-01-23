@@ -106,7 +106,7 @@ Select() {
     fi
   fi
 
-  output=`nmcli device wifi connect "$1" password "$PASS"`
+  output=`nmcli device wifi connect "$1" --ask <<< "$PASS"`
   success=`echo "$output" | grep successfully`
 
   if [ -z "$success" ]; then
@@ -130,7 +130,7 @@ Select() {
       Test_Button_B
       if [ "$?" -ne "10" ]; then
         clist2=`sleep 1 && sudo wpa_cli scan > /dev/null && sudo wpa_cli scan_results`
-        output=`nmcli device wifi connect "$1" password "$PASS"`
+        output=`nmcli device wifi connect "$1" --ask <<< "$PASS"`
         success=`echo "$output" | grep successfully`
         if [ ! -z "$success" ]; then
           output="Device successfully connected to $1 ..."
