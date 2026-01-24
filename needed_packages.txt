@@ -74,8 +74,10 @@ python3-setuptools
 python3-urwid
 python3-wheel
 rfkill
+rsync
 rustc
 samba
+sshpass
 systemd-timesyncd
 tar
 unzip
